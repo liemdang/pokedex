@@ -56,9 +56,9 @@ export default class Pokemon extends Component {
                 <img 
                     src={imageSource}
                     onLoad={this.onImageLoaded}
-                    alt="Pokemon"
+                    alt={this.props.match.params.name}
                     className="center"/>
-                <p>{this.state.description}</p>
+                <p style={{margin: "40px"}}>{this.state.description}</p>
                 </div>
                
                 <table border="1">

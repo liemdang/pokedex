@@ -24,16 +24,17 @@ export default class PokemonCard extends Component {
         imageSource = imageUrl
       }
         return (
-          <div className="col-md-4 col-sm-6 mb-5">
+          <div className="col-md-3 col-sm-6 mb-5">
            <Link to={`pokemon/${this.props.name}`}>
-              <div className="card" style={{width: "10rem"}}>
+              <div className="card" style={{width: "8rem"}}>
                 <div className="card-header">{this.props.number}</div>
-                  <img className="card-img-top" 
+                  <img 
+                    className="card-img-top" 
                     onLoad={this.onImageLoaded}
                     src={imageSource}
-                    alt="Pokemon"/>
+                    alt={this.props.name}/>
                   <div className="card-body">
-                  <h5 className="card-title">{this.props.name}</h5>
+                  <p style={{textAlign: "center"}} className="card-title">{this.props.name}</p>
                 </div>
               </div>
             </Link>
