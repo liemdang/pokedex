@@ -7,26 +7,25 @@ export default class PokemonList extends Component {
     state = {
         pokemonURL : "https://pokeapi.co/api/v2/pokemon/?limit=150",
         pokemon: [],
-        name: ""
+        name: "",
+        number: ""
     }
     async componentDidMount() {
         const res = await axios.get(this.state.pokemonURL);
         this.setState({pokemon: res.data['results']})
-        console.log(this.state.pokemon)
-        // this.state.pokemonURL.map(res => console.log(res))
     }
+    
     render() {
         return (
             <div className="row dashboard">
                 {this.state.pokemon.map(pokemon => (
                     <PokemonCard 
-                        key={pokemon.name} 
+                        key={pokemon.name}
                         name={pokemon.name} 
                         url={pokemon.url}
-                        number={pokemon.url.split("https://pokeapi.co/api/v2/pokemon/")}
-                        />
+                        number={pokemon.url.split("https://pokeapi.co/api/v2/pokemon/")[1].replace(/\//g, "")}
+                    />
                 ))}
-              
             </div>
         )
     }
