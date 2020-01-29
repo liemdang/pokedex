@@ -34,7 +34,7 @@ export default class Pokemon extends Component {
         const newStatDe = []
         for (let i = 0; i < reverseStat.length; i++) {
             let statUrl = await axios.get(reverseStat[i].stat.url)
-            let statDe = statUrl.data.names.find(wert => wert.language.name === "de")
+            let statDe = statUrl.data.names.find(value => value.language.name === "de")
             newStatDe.push(statDe.name)
             reverseStat[i].stat.name = newStatDe[i]
         }
