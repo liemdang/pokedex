@@ -15,10 +15,6 @@ export default class Pokemon extends Component {
     }
      
     async componentDidMount() {
-        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.props.match.params.name}`);
-        const reso = await axios.get(this.state.descriptionURL)
-        this.setState({name: reso.data.names[5].name})
-        
         function search(nameKey, myArray){
             for (let i = 0; i < myArray.length; i++) {
                 if (myArray[i].language.name === nameKey) {
@@ -26,19 +22,20 @@ export default class Pokemon extends Component {
                 }
             }
         }
-       
+        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.props.match.params.name}`);
         const resDes = await axios.get(this.state.descriptionURL);
-        const reverseStat = res.data.stats.reverse()
+        const pokeNameDe = search("de", resDes.data.names)
         
+        const reverseStat = res.data.stats.reverse()
         const descriptionObjects = resDes.data.flavor_text_entries
         const resultObject = search("de", descriptionObjects)
         const resultDescription = resultObject.flavor_text
         
         const newStatDe = []
-        for(let i = 0; i < reverseStat.length; i++) {
+        for (let i = 0; i < reverseStat.length; i++) {
             let statUrl = await axios.get(reverseStat[i].stat.url)
             let statDe = statUrl.data.names.find(wert => wert.language.name === "de")
-            hallo.push(statDe.name)
+            newStatDe.push(statDe.name)
             reverseStat[i].stat.name = newStatDe[i]
         }
 
@@ -46,7 +43,8 @@ export default class Pokemon extends Component {
             index: res.data.game_indices[0].game_index,
             stats: reverseStat,
             description: resultDescription,
-            loaded: true
+            loaded: true,
+            name: pokeNameDe.name
         })
     }
     onImageLoaded = () => {

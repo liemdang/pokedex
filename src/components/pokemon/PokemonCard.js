@@ -15,9 +15,18 @@ export default class PokemonCard extends Component {
   onImageLoaded = () => {
     this.setState({loaded: true})
   }
+  
   async componentDidMount() {
-    const reso = await axios.get(this.state.pokemonSpecUrl);
-    this.setState({name: reso.data.names[5].name})
+    function search(nameKey, myArray){
+      for (let i = 0; i < myArray.length; i++) {
+          if (myArray[i].language.name === nameKey) {
+              return myArray[i];
+          }
+      }
+  }
+    const resData = await axios.get(this.state.pokemonSpecUrl);
+    const pokeNameDe = search("de", resData.data.names)
+    this.setState({name: pokeNameDe.name})
   }
   
  
