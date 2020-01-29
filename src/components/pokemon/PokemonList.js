@@ -7,12 +7,16 @@ export default class PokemonList extends Component {
     state = {
         pokemonURL : "https://pokeapi.co/api/v2/pokemon/?limit=150",
         pokemon: [],
-        name: "",
-        number: ""
+        pokemonName: [],
+        // name: "",
+        number: "",
+        
     }
     async componentDidMount() {
         const res = await axios.get(this.state.pokemonURL);
+        
         this.setState({pokemon: res.data['results']})
+        
     }
     
     render() {
@@ -21,7 +25,7 @@ export default class PokemonList extends Component {
                 {this.state.pokemon.map(pokemon => (
                     <PokemonCard 
                         key={pokemon.name}
-                        name={pokemon.name} 
+                        name={pokemon.name}
                         url={pokemon.url}
                         number={pokemon.url.split("https://pokeapi.co/api/v2/pokemon/")[1].replace(/\//g, "")}
                     />

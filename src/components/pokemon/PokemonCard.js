@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import spinner from '../UI/spinner-gif.gif';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
 
 export default class PokemonCard extends Component {
   state = {
@@ -9,11 +9,17 @@ export default class PokemonCard extends Component {
     imageUrl: "",
     pokemonIndex: "",
     number: "",
-    loaded: false
+    loaded: false,
+    pokemonSpecUrl: `https://pokeapi.co/api/v2/pokemon-species/${this.props.name}`
   }
   onImageLoaded = () => {
     this.setState({loaded: true})
   }
+  async componentDidMount() {
+    const reso = await axios.get(this.state.pokemonSpecUrl);
+    this.setState({name: reso.data.names[5].name})
+  }
+  
  
     render() {
       const imageUrl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${this.props.number}.png?raw=true`
@@ -34,7 +40,7 @@ export default class PokemonCard extends Component {
                     src={imageSource}
                     alt={this.props.name}/>
                   <div className="card-body">
-                  <p style={{textAlign: "center"}} className="card-title">{this.props.name}</p>
+                  <p style={{textAlign: "center"}} className="card-title">{this.state.name}</p>
                 </div>
               </div>
             </Link>

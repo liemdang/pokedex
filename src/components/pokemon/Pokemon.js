@@ -10,26 +10,38 @@ export default class Pokemon extends Component {
         description: "",
         descriptionURL: `https://pokeapi.co/api/v2/pokemon-species/${this.props.match.params.name}`,
         stats: [],
-        loaded: false
+        loaded: false,
+        name: ""
     }
      
     async componentDidMount() {
         const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.props.match.params.name}`);
+        const reso = await axios.get(this.state.descriptionURL)
+        this.setState({name: reso.data.names[5].name})
         
         function search(nameKey, myArray){
-            for (var i=0; i < myArray.length; i++) {
+            for (let i = 0; i < myArray.length; i++) {
                 if (myArray[i].language.name === nameKey) {
                     return myArray[i];
                 }
             }
         }
-        
+       
         const resDes = await axios.get(this.state.descriptionURL);
         const reverseStat = res.data.stats.reverse()
+        
         const descriptionObjects = resDes.data.flavor_text_entries
-        const resultObject = search("en", descriptionObjects)
+        const resultObject = search("de", descriptionObjects)
         const resultDescription = resultObject.flavor_text
         
+        const newStatDe = []
+        for(let i = 0; i < reverseStat.length; i++) {
+            let statUrl = await axios.get(reverseStat[i].stat.url)
+            let statDe = statUrl.data.names.find(wert => wert.language.name === "de")
+            hallo.push(statDe.name)
+            reverseStat[i].stat.name = newStatDe[i]
+        }
+
         this.setState({
             index: res.data.game_indices[0].game_index,
             stats: reverseStat,
@@ -51,7 +63,7 @@ export default class Pokemon extends Component {
         return (
             <div className="card">
                 <h1>Pokemon</h1>
-                <h3>{this.props.match.params.name}</h3>
+                <h3>{this.state.name}</h3>
                 <div>
                 <img 
                     src={imageSource}
