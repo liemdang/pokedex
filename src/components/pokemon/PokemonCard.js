@@ -40,8 +40,8 @@ export default class PokemonCard extends Component {
       }
         return (
           <div className="col-md-3 col-sm-6 mb-5">
-           <Link to={`pokemon/${this.props.name}`}>
-              <div className="card" style={{width: "8rem"}}>
+            <div className="card" style={{width: "8rem"}}>
+              <Link to={`pokemon/${this.props.name}`}>
                 <div className="card-header">{this.props.number}</div>
                   <img 
                     className="card-img-top" 
@@ -51,8 +51,8 @@ export default class PokemonCard extends Component {
                   <div className="card-body">
                   <p style={{textAlign: "center"}} className="card-title">{this.state.name}</p>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           </div> 
         )
     }
