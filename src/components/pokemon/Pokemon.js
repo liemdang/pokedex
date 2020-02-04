@@ -70,16 +70,23 @@ export default class Pokemon extends Component {
                     className="center"/>
                 <p style={{margin: "40px"}}>{this.state.description}</p>
                 </div>
-               
                 <table border="1">
                    <tbody>
-                {this.state.stats.map(stats => (
-                   <tr key={stats.stat.name}>
+                    {this.state.stats.map(stats => (
+                    <tr key={stats.stat.name}>
                         <td>{stats.stat.name}</td>
-                        <td>{stats.base_stat}</td>
+                        <td>
+                            <div className="progress">
+                                <div 
+                                    className="progress-bar" 
+                                    role="progressbar" 
+                                    style={{width: Math.round(stats.base_stat/154 * 100).toString() + "%"}}>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
-                )
-                )}
+                    )
+                    )}
                    </tbody> 
                 </table>
             </div>
