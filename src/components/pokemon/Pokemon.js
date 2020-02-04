@@ -81,6 +81,7 @@ export default class Pokemon extends Component {
                                     className="progress-bar" 
                                     role="progressbar" 
                                     style={{width: Math.round(stats.base_stat/154 * 100).toString() + "%"}}>
+                                    {stats.base_stat}
                                 </div>
                             </div>
                         </td>
