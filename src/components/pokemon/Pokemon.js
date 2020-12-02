@@ -25,7 +25,7 @@ export default class Pokemon extends Component {
         const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.props.match.params.name}`);
         const resDes = await axios.get(this.state.descriptionURL);
         const pokeNameDe = search("de", resDes.data.names)
-        
+        console.log(res)
         const reverseStat = res.data.stats.reverse()
         const descriptionObjects = resDes.data.flavor_text_entries
         const resultObject = search("de", descriptionObjects)
@@ -40,7 +40,7 @@ export default class Pokemon extends Component {
         }
 
         this.setState({
-            index: res.data.game_indices[0].game_index,
+            index: res.data.id,
             stats: reverseStat,
             description: resultDescription,
             loaded: true,
@@ -51,7 +51,7 @@ export default class Pokemon extends Component {
         this.setState({loaded: true})
       } 
     render() {
-        const imageUrl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${this.state.index}.png?raw=true`
+        const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${this.state.index}.png`
         let imageSource 
       if(this.state.loaded === false) {
         imageSource = spinner
@@ -64,6 +64,8 @@ export default class Pokemon extends Component {
                 <h3>{this.state.name}</h3>
                 <div>
                 <img 
+                    width="400px"
+                    height="400px"
                     src={imageSource}
                     onLoad={this.onImageLoaded}
                     alt={this.props.match.params.name}

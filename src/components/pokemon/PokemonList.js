@@ -19,6 +19,7 @@ export default class PokemonList extends Component {
     render() {
         return (
             <div className="row dashboard">
+                {console.log(this.state.pokemon)}
                 {this.state.pokemon.map(pokemon => (
                     <PokemonCard 
                         key={pokemon.name}
