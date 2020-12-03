@@ -11,7 +11,8 @@ export default class Pokemon extends Component {
         descriptionURL: `https://pokeapi.co/api/v2/pokemon-species/${this.props.match.params.name}`,
         stats: [],
         loaded: false,
-        name: ""
+        name: "",
+        height: ""
     }
      
     async componentDidMount() {
@@ -22,19 +23,19 @@ export default class Pokemon extends Component {
                 }
             }
         }
+        
         const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.props.match.params.name}`);
         const resDes = await axios.get(this.state.descriptionURL);
-        const pokeNameDe = search("de", resDes.data.names)
-        console.log(res)
-        const reverseStat = res.data.stats.reverse()
-        const descriptionObjects = resDes.data.flavor_text_entries
-        const resultObject = search("de", descriptionObjects)
-        const resultDescription = resultObject.flavor_text
+        const pokeNameDe = search("de", resDes.data.names);
+        const reverseStat = res.data.stats.reverse();
+        const descriptionObjects = resDes.data.flavor_text_entries;
+        const resultObject = search("de", descriptionObjects);
+        const resultDescription = resultObject.flavor_text;
         
         const newStatDe = []
         for (let i = 0; i < reverseStat.length; i++) {
             let statUrl = await axios.get(reverseStat[i].stat.url)
-            let statDe = statUrl.data.names.find(value => value.language.name === "de")
+            let statDe = statUrl.data.names.find(value => value.language.name === "de");
             newStatDe.push(statDe.name)
             reverseStat[i].stat.name = newStatDe[i]
         }
@@ -44,29 +45,23 @@ export default class Pokemon extends Component {
             stats: reverseStat,
             description: resultDescription,
             loaded: true,
-            name: pokeNameDe.name
+            name: pokeNameDe.name,
+            height: res.data.height
         })
     }
     onImageLoaded = () => {
-        this.setState({loaded: true})
+        this.setState({loaded: true});
       } 
     render() {
         const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${this.state.index}.png`
-        let imageSource 
-      if(this.state.loaded === false) {
-        imageSource = spinner
-      } else {
-        imageSource = imageUrl
-      }
         return (
             <div className="card">
                 <h1>Pokemon</h1>
                 <h3>{this.state.name}</h3>
                 <div>
                 <img 
-                    width="400px"
-                    height="400px"
-                    src={imageSource}
+                    width={this.state.height < 10 ? "300px" : "400px"}
+                    src={this.state.loaded ? imageUrl : spinner}
                     onLoad={this.onImageLoaded}
                     alt={this.props.match.params.name}
                     className="center"/>

@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Dashboard from './components/layout/Dashboard';
+import DashBoard from './components/layout/Dashboard';
 import { BrowserRouter as Router,  Route, Switch, Link} from 'react-router-dom';
-import Pokemon from './components/pokemon/Pokemon';
+import PokemonDetails from './components/pokemon/PokemonDetails';
 function App() {
   return (
     <div className="App">
@@ -14,8 +14,8 @@ function App() {
           </nav>
         </div>   
         <Switch>
-          <Route path="/" exact component={Dashboard}/>
-          <Route path="/pokemon/:name" exact component={Pokemon}/>
+          <Route path="/" exact component={DashBoard}/>
+          <Route path="/pokemon/:name" exact component={PokemonDetails}/>
         </Switch>
       </Router>
     </div>

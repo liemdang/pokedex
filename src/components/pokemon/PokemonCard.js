@@ -6,8 +6,6 @@ import axios from 'axios';
 export default class PokemonCard extends Component {
   state = {
     name: "",
-    imageUrl: "",
-    pokemonIndex: "",
     number: "",
     loaded: false,
     pokemonSpecUrl: `https://pokeapi.co/api/v2/pokemon-species/${this.props.name}`
@@ -25,19 +23,14 @@ export default class PokemonCard extends Component {
       }
   }
     const resData = await axios.get(this.state.pokemonSpecUrl);
-    const pokeNameDe = search("de", resData.data.names)
-    this.setState({name: pokeNameDe.name})
+    const pokeNameDe = search("de", resData.data.names);
+    this.setState({name: pokeNameDe.name});
   }
   
  
     render() {
       const imageUrl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${this.props.number}.png?raw=true`
-      let imageSource 
-      if(this.state.loaded === false) {
-        imageSource = spinner
-      } else {
-        imageSource = imageUrl
-      }
+      
         return (
           <div className="col-md-3 col-sm-6 mb-5">
             <div className="card" style={{width: "8rem"}}>
@@ -46,7 +39,7 @@ export default class PokemonCard extends Component {
                   <img 
                     className="card-img-top" 
                     onLoad={this.onImageLoaded}
-                    src={imageSource}
+                    src={this.state.loaded ? imageUrl : spinner}
                     alt={this.props.name}/>
                   <div className="card-body">
                   <p style={{textAlign: "center"}} className="card-title">{this.state.name}</p>
