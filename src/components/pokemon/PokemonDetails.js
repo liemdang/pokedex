@@ -4,7 +4,7 @@ import '../../App.css';
 import axios from 'axios';
 import spinner from '../UI/spinner-gif.gif';
 
-export default class Pokemon extends Component {
+export default class PokemonDetails extends Component {
     state = {
         index: "", 
         description: "",
@@ -55,18 +55,20 @@ export default class Pokemon extends Component {
     render() {
         const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${this.state.index}.png`
         return (
-            <div className="card">
-                <h1>Pokemon</h1>
-                <h3>{this.state.name}</h3>
-                <div>
-                <img 
-                    width={this.state.height < 10 ? "300px" : "400px"}
-                    src={this.state.loaded ? imageUrl : spinner}
-                    onLoad={this.onImageLoaded}
-                    alt={this.props.match.params.name}
-                    className="center"/>
-                <p style={{margin: "40px"}}>{this.state.description}</p>
-                </div>
+            <div className="card liem">
+                
+                <div className="pokeDetails_container">
+                    <div className="image_name">
+                        <h3>{this.state.name}</h3>
+                        <img 
+                        width={this.state.height < 10 ? "200px" : "300px"}
+                        src={this.state.loaded ? imageUrl : spinner}
+                        onLoad={this.onImageLoaded}
+                        alt={this.props.match.params.name}
+                        className="center"/>
+                    </div>
+                
+                
                 <table border="1">
                    <tbody>
                     {this.state.stats.map(stats => (
@@ -87,6 +89,8 @@ export default class Pokemon extends Component {
                     )}
                    </tbody> 
                 </table>
+                </div>
+                <p className="description">{this.state.description}</p>
             </div>
         )
     }

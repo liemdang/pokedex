@@ -10,18 +10,17 @@
   background-color: lightblue;
 }
 
-h3 {
-  text-align: center
-}
+/* h3 {
+  text-align: center;
+} */
 .center {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 table {
-  margin-right: auto;
-  margin-left: auto;
   width: 50%;
+  margin: auto;
 }
 td {
   width: 40%;
@@ -31,4 +30,56 @@ td {
 p {
   text-align: center;
 }
+.card {
+  margin: 0 auto 0 auto;
+}
+.pokeCard {
+  padding-left: 50px;
+  text-decoration: none;
+  text-align: center;
+}
+.pokeDetails_container {
+  display: flex;
+  width: 90%;
+  margin: 70px auto 0 auto;
+}
+.test {
+  color: black;
+  text-decoration: none;
+  transition: transform 1s;
+}
+.test:hover {
+  text-decoration: none;
+  box-shadow: 5px 10px 18px #888888;
+}
+.card-img-top:hover {
+  transform: scale(1.1);
+}
 
+.image_name {
+  text-align: center;
+}
+.liem {
+  margin-bottom: 50px;
+}
+
+.description {
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin: 20px 100px 20px 100px;
+}
+
+@media only screen and (max-width: 800px) {
+  .pokeDetails_container {
+    flex-direction: column;
+  }
+  .description {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+  }
+  table {
+    margin-top: 20px;
+    width: 100%;
+  }
+}

@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <Router>
         <div>
-          <nav className="navbar navbar-extend-md navbar-dark fixed-top" style={{backgroundColor: "#e3350d"}} >
+          <nav className="navbar  navbar-dark fixed-top" style={{backgroundColor: "#e3350d"}} >
               <Link to="/" className="navbar-brand">Pokedex</Link>
           </nav>
         </div>   

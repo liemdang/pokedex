@@ -32,9 +32,9 @@ export default class PokemonCard extends Component {
       const imageUrl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${this.props.number}.png?raw=true`
       
         return (
-          <div className="col-md-3 col-sm-6 mb-5">
-            <div className="card" style={{width: "8rem"}}>
-              <Link to={`pokemon/${this.props.name}`}>
+          <div className="col-md-3 col-sm-3 mb-3 pokeCard">
+            <div className="card mylan" style={{width: "8rem"}}>
+              <Link to={`pokemon/${this.props.name}`} className="test">
                 <div className="card-header">{this.props.number}</div>
                   <img 
                     className="card-img-top" 
