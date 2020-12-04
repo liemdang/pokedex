@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import spinner from '../UI/spinner-gif.gif';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import pokeBall from "../UI/pokeball.png";
 
 export default class PokemonCard extends Component {
   state = {
@@ -32,14 +32,14 @@ export default class PokemonCard extends Component {
       const imageUrl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${this.props.number}.png?raw=true`
       
         return (
-          <div className="col-md-3 col-sm-3 mb-3 pokeCard">
-            <div className="card mylan" style={{width: "8rem"}}>
-              <Link to={`pokemon/${this.props.name}`} className="test">
+          <div className="pokeCard">
+            <div className="card" style={{width: "8rem"}}>
+              <Link to={`pokemon/${this.props.name}`} className="pokemon_click">
                 <div className="card-header">{this.props.number}</div>
                   <img 
                     className="card-img-top" 
                     onLoad={this.onImageLoaded}
-                    src={this.state.loaded ? imageUrl : spinner}
+                    src={this.state.loaded ? imageUrl : pokeBall}
                     alt={this.props.name}/>
                   <div className="card-body">
                   <p style={{textAlign: "center"}} className="card-title">{this.state.name}</p>

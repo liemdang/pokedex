@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import axios from 'axios';
-import spinner from '../UI/spinner-gif.gif';
+import pokeBall from "../UI/pokeball.png";
 
 export default class PokemonDetails extends Component {
     state = {
@@ -23,7 +23,7 @@ export default class PokemonDetails extends Component {
                 }
             }
         }
-        
+        document.getElementsByClassName("content_container")[0].style.height = "100vh";
         const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${this.props.match.params.name}`);
         const resDes = await axios.get(this.state.descriptionURL);
         const pokeNameDe = search("de", resDes.data.names);
@@ -53,6 +53,7 @@ export default class PokemonDetails extends Component {
         this.setState({loaded: true});
       } 
     render() {
+        
         const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${this.state.index}.png`
         return (
             <div className="card liem">
@@ -62,7 +63,7 @@ export default class PokemonDetails extends Component {
                         <h3>{this.state.name}</h3>
                         <img 
                         width={this.state.height < 10 ? "200px" : "300px"}
-                        src={this.state.loaded ? imageUrl : spinner}
+                        src={this.state.loaded ? imageUrl : pokeBall}
                         onLoad={this.onImageLoaded}
                         alt={this.props.match.params.name}
                         className="center"/>
