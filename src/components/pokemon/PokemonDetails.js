@@ -12,7 +12,8 @@ export default class PokemonDetails extends Component {
         stats: [],
         loaded: false,
         name: "",
-        height: ""
+        height: "",
+        imageSize: ""
     }
      
     async componentDidMount() {
@@ -48,21 +49,31 @@ export default class PokemonDetails extends Component {
             name: pokeNameDe.name,
             height: res.data.height
         })
+       
+        if(window.innerWidth < 500 && this.state.height < 10) {
+            this.setState({imageSize: "150px"}) 
+        } else if(window.innerWidth < 500 && this.state.height >= 10){
+            this.setState({imageSize: "200px"}) 
+        } else if(window.innerWidth >= 500 && this.state.height < 10){
+            this.setState({imageSize: "200px"}) 
+        } else {
+            this.setState({imageSize: "300px"}) 
+        }
+        
     }
     onImageLoaded = () => {
         this.setState({loaded: true});
-      } 
+    } 
     render() {
-        
         const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${this.state.index}.png`
         return (
-            <div className="card liem">
+            <div className="card">
                 
                 <div className="pokeDetails_container">
                     <div className="image_name">
                         <h3>{this.state.name}</h3>
                         <img 
-                        width={this.state.height < 10 ? "200px" : "300px"}
+                        width={this.state.imageSize}
                         src={this.state.loaded ? imageUrl : pokeBall}
                         onLoad={this.onImageLoaded}
                         alt={this.props.match.params.name}

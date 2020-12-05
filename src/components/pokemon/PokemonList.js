@@ -6,6 +6,7 @@ import '../../App.css';
 const PokemonList = () =>  {
     const [initialLoading, setInitialLoading] = useState(16);
     const [pokemons, setPokemons] = useState([]);
+    const [clickedLoadMore, setClickedLoadMore] = useState(false)
 
     const pokemonURL = `https://pokeapi.co/api/v2/pokemon/?limit=${initialLoading}`;
     useEffect(() => {
@@ -15,9 +16,15 @@ const PokemonList = () =>  {
     }, [pokemonURL])
 
     const handleLoadMore = () => {
-        setInitialLoading(initialLoading + 12)
+        setInitialLoading(initialLoading + 12);
+        document.getElementById("btn_load").remove();
+        setClickedLoadMore(true)
     }
-    
+    window.onscroll = function(ev) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight && clickedLoadMore ) {
+            setInitialLoading(initialLoading + 12)
+        }
+    };
     return (
         <div>
             <div className="row dashboard">
@@ -31,7 +38,7 @@ const PokemonList = () =>  {
             ))}
             <br />
             </div>
-            <button className="btn btn-primary btn_loadMore" onClick={handleLoadMore}>Mehr Pokemon laden</button>
+            <button id="btn_load" className="btn btn-primary btn_loadMore" onClick={handleLoadMore}>Mehr Pokemon laden</button>
         </div>
         
     )
